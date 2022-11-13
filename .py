@@ -159,10 +159,36 @@ def parse_pages(max_num_of_requests, least_num_of_marks):
         ):
             i = max_num_of_requests
             break
-    return dataset    
+    return dataset   
+
+def create_folder():
+    os.mkdir('dataset')
+    for i in range(1,6):
+        os.mkdir('dataset/'+str(i))
+
+def save_reviews(data, filename):
+    for i in range(0, len(data)):
+         file = open(filename + f"\\{(i+1):04}" + ".txt", "w", encoding="utf-8")
+         file.write(data[i].get_name()) 
+         file.write("\n\n\n")
+         file.write(data[i].get_review())
+         file.close
+
 
 if __name__ == "__main__":
     URL =  'https://www.livelib.ru/reviews/'
     max_num_of_requests = 9000
     least_num_of_marks = 1000   
     dataset = parse_pages(max_num_of_requests, least_num_of_marks)
+    create_folder()
+    one_data = [el for el in dataset if el.get_mark()<1.5]
+    save_reviews(one_data, "dataset\\1")
+    two_data = [el for el in dataset if el.get_mark()>=1.5 and el.get_mark()<2.5]
+    save_reviews(two_data, "dataset\\2")
+    three_data = [el for el in dataset if el.get_mark()>=2.5 and el.get_mark()<3.5]
+    save_reviews(three_data, "dataset\\3")
+    four_data = [el for el in dataset if el.get_mark()>=3.5 and el.get_mark()<4.5]
+    save_reviews(four_data, "dataset\\4")
+    five_data = [el for el in dataset if el.get_mark()>=4.5 and el.get_mark()<=5.0]
+    save_reviews(five_data, "dataset\\5")
+    print("Работа завершена.")
