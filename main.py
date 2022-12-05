@@ -1,13 +1,9 @@
 import os
-from time import sleep
-import requests
-from bs4 import BeautifulSoup as bs
 
 import utils
 
 
 if __name__ == "__main__":
-    URL =  'https://www.livelib.ru/reviews/'
     max_num_of_requests = 9000
     least_num_of_marks = 1000   
     dataset = utils.parse_pages(max_num_of_requests, least_num_of_marks)
